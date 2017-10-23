@@ -1,0 +1,50 @@
+---
+title: "Highcharter scatter plot in R"
+author: "Red Oak Startegic"
+output: 
+  
+html_document:
+theme: paper   
+highlight: zenburn
+include:
+ after_body: footer.html
+---
+<br>
+  
+   Highcharter is an R package for Highcharts javascript library and its modules. Click here if you want to learn more  <http://jkunst.com/highcharter/>
+  
+  A scatter plot in highcharter is great in dispalying a relationship between two variables in a dataset.
+
+```{r}
+# Create a simple dataframe
+days <- c(1,2,3,4,5,6,7,8,9,10)
+sales <- c(900,1000,800,730,500,750,800,900,1000,1000)
+cost <- c(50,50,100,40,100,50,10,10,45,100)
+topSeller <-c("product1", "product2", "product1", "product2",
+             "product1", "product3", "product1", "product2",
+             "product1","product2")
+df <- data.frame(days, sales, cost, topSeller)
+
+show(df)
+```
+
+```{r}
+library("highcharter")
+
+
+highchart() %>% 
+  hc_title(text = "Scatter plot") %>% 
+  # x axis is days, y axis is sales, size is cost, color is topSeller
+  hc_add_series_scatter(df$days, df$sales,df$cost, df$topSeller)
+
+                      
+```
+
+
+
+
+
+
+
+
+

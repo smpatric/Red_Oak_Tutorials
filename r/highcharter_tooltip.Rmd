@@ -1,0 +1,52 @@
+---
+title: "Highcharter tooltips in R"
+author: "Red Oak Startegic"
+output: 
+  
+html_document:
+theme: paper   
+highlight: zenburn
+include:
+ after_body: footer.html
+---
+<br>
+  
+   Highcharter is an R package for Highcharts javascript library and its modules. Click here if you want to learn more  <http://jkunst.com/highcharter/>
+  
+  The tooltip appears when hovering over a point in a series. By default the tooltip shows the values of the point and the name of the series but it can also show so much more. Click here if you want to learn more <https://www.highcharts.com/docs/chart-concepts/tooltip>
+  
+```{r}
+# Create a simple dataframe
+age <- c(15,17,18,17)
+name <- c("mike","jessica","matt","kate")
+gender <- c("male","female","male","female")
+score <- c(85,95,90,100)
+hours_studied <- c(7,10,8,11)
+state <- c("DC","NY","CA","IL")
+student_id <- c("A","B","C","D")
+
+df <- data.frame(student_id, name, score, hours_studied, age, gender, state)
+
+show(df)
+```
+
+```{r}
+library("highcharter")
+
+
+highchart() %>% 
+  hc_title(text = "Scatter plot") %>% 
+  # Create a scatter plot
+  # variables, age/gender/state/name/etc, are created to be used in the tooltip function
+  hc_add_series_scatter(df$hours_studied, df$score,
+                        student = df$student_id, age = df$age,
+                        gender = df$gender, score = df$score,
+                        state = df$state, name = df$name) %>% 
+  hc_yAxis(title=list(text='score')) %>%
+  hc_xAxis(title=list(text='hours studied')) %>% 
+  # Create a tooltip with your desired endpoints using html
+  hc_tooltip(headerFormat = "", pointFormat = "student: {point.student} <br>
+            hours studied: {point.x} <br> score: {point.y} <br>
+            age: {point.age} <br> gender: {point.gender}")
+```
+

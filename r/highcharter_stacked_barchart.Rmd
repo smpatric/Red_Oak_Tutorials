@@ -1,0 +1,69 @@
+---
+title: "Highcharter stacked barchart in R"
+author: "Red Oak Startegic"
+output: 
+  
+html_document:
+theme: paper   
+highlight: zenburn
+include:
+ after_body: footer.html
+---
+<br>
+  Highcharter is an R package for Highcharts javascript libray and its modules. Click here if you want to learn more  <http://jkunst.com/highcharter/>
+  
+  A stacked bar chart is a great plotting option for certain types of datasets. It makes it easier to compare different variables by stacking all of them into one bar. This is very useful when the dataset is large and a regular combined bar chart will make the visual hard to grasp.
+
+
+```{r}
+# Create a testing dataset
+Q1_followers <- c(1000, 1500, 1600, 2000)
+Q2_followers <- c(1500, 1400, 1700, 3000)
+Q3_followers <- c(1600, 1000,1200 , 1700)
+Q4_followers <- c(2000, 1000, 500, 1200)
+account <- c("Facebook", "Twitter", "SnapChat", "Instagram")
+df <- data.frame(account, Q1_followers, Q2_followers, Q3_followers, Q4_followers)
+
+show(df)
+```
+
+<br>
+This code shows both, a combined barchart and a stacking barchart, 
+first, this is the combined bar chart code.
+
+```{r}
+library("highcharter")
+
+# Create an unstacked barchart
+highchart() %>%
+  hc_chart(type = "bar")%>%
+  hc_title(text = "unstacked bar chart") %>%
+  hc_xAxis(title=list(text='Network'), categories=df$account) %>%
+  hc_yAxis(title=list(text='views')) %>%
+  hc_add_series(name = "Q1", data = df$Q1_followers) %>%
+  hc_add_series(name= "Q2", data = df$Q2_followers) %>%
+  hc_add_series(name= "Q3", data = df$Q3_followers) %>%
+  hc_add_series(name= "Q4", data = df$Q4_followers)
+```
+
+<br>
+This code shows the stacking barchart which is done through the hc plot options. Click here if you want to learn more about plotting options on highcharter <http://api.highcharts.com/highcharts/plotOptions.bar>
+
+```{r}
+# Create a stacked bar chart
+highchart() %>%
+  hc_chart(type = "bar")%>%
+  hc_title(text = "stacked bar chart") %>%
+  hc_xAxis(title=list(text='Network'), categories=df$account) %>%
+  hc_yAxis(title=list(text='views')) %>%
+  # Create the stacking option
+  hc_plotOptions(bar = list(dataLabels = list, stacking = "normal")) %>%
+  hc_add_series(name = "Q1", data = df$Q1_followers) %>%
+  hc_add_series(name= "Q2", data = df$Q2_followers) %>%
+  hc_add_series(name= "Q3", data = df$Q3_followers) %>%
+  hc_add_series(name= "Q4", data = df$Q4_followers)
+
+```
+
+
+

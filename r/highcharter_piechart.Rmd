@@ -1,0 +1,51 @@
+---
+title: "Highcharter pie chart in R"
+author: "Red Oak Startegic"
+output: 
+  
+html_document:
+theme: paper   
+highlight: zenburn
+include:
+ after_body: footer.html
+---
+<br>
+  
+   Highcharter is an R package for Highcharts javascript library and its modules. Click here if you want to learn more  <http://jkunst.com/highcharter/>
+  
+  A pie chart in highcharter is great for numerical proportions. This code will build half a piechart which looks great at the bottom of dashboards.
+
+```{r}
+# Create a simple dataframe
+account <- c('facebook', 'twitter')
+followers <- c(1000, 850)
+df <- data.frame(account, followers)
+
+show(df)
+```
+
+```{r}
+library("highcharter")
+
+
+#Create half a pie chart
+ hc <- highchart() %>%
+      #innerSize is used to put some whitespace at the bottom of the piechart
+      #start and end angles are used to slice the piechart
+      hc_add_series_labels_values(labels=df$account
+                                  ,values=df$followers
+                                  ,type='pie', name='impressions', innerSize='50%' 
+                                  ,startAngle='-90', endAngle='90') %>%
+      hc_subtitle(text="Impressions", align='center', verticalAlign='middle', y=-10) 
+ hc
+
+```
+
+
+
+
+
+
+
+
+

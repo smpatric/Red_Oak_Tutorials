@@ -1,0 +1,48 @@
+---
+title: "tutorial_rmarkdown_aws_archive_snapshot"
+author: "Mark Stephenson"
+date: "7/6/2017"
+output: 
+  html_document:
+    theme: paper   
+    highlight: zenburn
+    include:
+      after_body: footer.html
+  
+---
+```{r, engine = 'bash', eval = FALSE}
+for foo in (ls bar)
+do
+  echo $foo
+done
+```
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## R Markdown
+
+This is an R Markdown document. Markdown is a simple formatting syntax for authoring HTML, PDF, and MS Word documents. For more details on using R Markdown see <http://rmarkdown.rstudio.com>.
+
+When you click the **Knit** button a document will be generated that includes both content as well as the output of any embedded R code chunks within the document. You can embed an R code chunk like this:
+
+```{python, engine.path="/Users/markstephenson/anaconda/bin/python"}
+import psycopg2
+import os
+```
+
+```{python, engine.path="/Users/markstephenson/anaconda/bin/python", eval=FALSE}
+rdsconn = psycopg2.connect(database='your_db', user='user', password="pw", host='your-rds.rds.amazonaws.com', port='5432')
+rdscursor = rdsconn.cursor()
+```
+
+## Including Plots
+
+You can also embed plots, for example:
+
+```{r pressure, echo=FALSE}
+plot(pressure)
+```
+
+Note that the `echo = FALSE` parameter was added to the code chunk to prevent printing of the R code that generated the plot.

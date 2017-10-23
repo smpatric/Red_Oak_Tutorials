@@ -1,0 +1,48 @@
+---
+title: "Highcharter loop in R"
+author: "Red Oak Startegic"
+output: 
+  
+html_document:
+theme: paper   
+highlight: zenburn
+include:
+ after_body: footer.html
+---
+<br>
+
+  Highcharter is an R package for Highcharts javascript libray and its modules. Click here if you want to learn more  <http://jkunst.com/highcharter/>
+  
+  A highcharter loop executes the same code over and over again. This is very useful when you want to create a scalable plot for new unkown data.
+
+```{r}
+# Create a simple dataframe
+student <- c('John','Peter','Julie', 'Maggie')
+score <- c(40,75,90,20)
+data <- data.frame(student, score)
+
+show(data)
+```
+
+
+```{r}
+library("highcharter")
+
+
+hc <- highchart()
+  for (i in unique(data$student)) {
+      hc <- hc %>%
+         hc_add_series(data$score[data$student == i],
+                  name = sprintf("%s", i), 
+                  showInLegend=TRUE, 
+                  type = "column") }
+hc %>%
+  #header format is the series's number. A loop considers all plots as series 0 and therefore it'll be best to remove it.
+  hc_tooltip(headerFormat = "", pointFormat = "{series.name}")
+```
+
+
+
+
+
+
